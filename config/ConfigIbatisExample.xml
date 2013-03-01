@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ibatorConfiguration
+  PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN"
+  "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd">
+
+<ibatorConfiguration>
+	<classPathEntry location="E:/jars/ojdbc/ojdbc14_10.2.0.4.jar" />
+	<ibatorContext id="FlatJava5" targetRuntime="Ibatis2Java5">
+		<property name="suppressTypeWarnings" value="true" />
+		<!-- Serializable化 -->
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.SerializablePlugin" />
+		<!-- 这个插件添加方法为例(实际上的内部类)来支持不区分大小写像搜索。这个演示了增加功能,通过一个实例类插件,而不是延长上课。 -->
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.CaseInsensitiveLikePlugin" />
+		<!-- 分页 -->
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.PaginationPlugin">
+			<property name="enablePagination" value="true" />
+			<!-- mysql or oracle -->
+			<property name="databaseType" value="oracle" />
+		</ibatorPlugin>
+		<!-- 重命名example类 -->
+		<ibatorPlugin
+			type="org.apache.ibatis.ibator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</ibatorPlugin>
+		<!-- 产生sqlmap.xml 
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.SqlMapConfigPlugin">
+			<property name="targetPackage" value="ibatortest.generated.flat" />
+			<property name="targetProject" value="src" />
+		</ibatorPlugin>
+		-->
+		
+		<!-- driverClass="com.mysql.jdbc.Driver" -->
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:ora10g" userId="test"
+			password="test" >
+			<property name="remarksReporting" value="true"/>
+			</jdbcConnection>
+		<javaModelGenerator targetPackage="test.pojo"
+			targetProject="src">
+			<property name="enableSubPackages" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="test.sqlmap"
+			targetProject="src">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<daoGenerator type="SPRING" targetPackage="test.dao" implementationPackage="test.dao.impl"
+			targetProject="src">
+			<property name="enableSubPackages" value="true" />
+		</daoGenerator>
+
+		<table tableName="_APPLETE_INFO">
+		 <columnOverride column="UPDATED_DATE" jdbcType="TIMESTAMP"/>
+		</table>
+	</ibatorContext>
+</ibatorConfiguration>

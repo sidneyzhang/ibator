@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ibatorConfiguration
+  PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN"
+  "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd">
+
+<ibatorConfiguration>
+	<classPathEntry
+		location="D:\MySpaces\ncbsws\mytest\WebContent\WEB-INF\lib\ojdbc6.jar" />
+		<ibatorContext id="FlatJava5" targetRuntime="Ibatis2Java5">
+		<property name="suppressTypeWarnings" value="true" />
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.AnnotationPlugin" />
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.CaseInsensitiveLikePlugin" />
+		<!-- 分页 ，自动根据下面的配置jdbcConnection的 driverClass自动判断是oracle还是mysql -->
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.PaginationPlugin" />
+		<!-- 重命名example类 -->
+		<ibatorPlugin
+			type="org.apache.ibatis.ibator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</ibatorPlugin>
+		<!-- 产生sqlmap.xml -->
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.SqlMapConfigPlugin">
+			<property name="targetPackage" value="application.ibatis.bond" />
+			<property name="targetProject" value="D:\zhsc_NCBS_new\NCBS_App\ncbs-dos\cfg\" />
+		</ibatorPlugin>
+		<!-- 产生service -->
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.ServiceImplPlugin">
+			<property name="targetPackage" value="com.ccb.ncbs.dos.bond.service" />
+			<property name="implementationPackage" value="com.ccb.ncbs.dos.bond.service" />
+			<property name="targetProject" value="D:\zhsc_NCBS_new\NCBS_App\ncbs-dos\src\" />
+			<property name="addResult" value="false" />
+			<property name="enableAnnotation" value="true" />
+		</ibatorPlugin>
+
+		<jdbcConnection connectionURL="jdbc:oracle:thin:@128.160.96.54:1521:crmdb"
+			userId="ncbs" password="ncbs" driverClass="oracle.jdbc.OracleDriver">
+			<property name="remarksReporting" value="true" />
+		</jdbcConnection>
+		<javaModelGenerator targetPackage="com.ccb.ncbs.bean.data.bond"
+			targetProject="D:\zhsc_NCBS_new\NCBS_App\ncbs-bean\src\">
+		</javaModelGenerator>
+		<daoGenerator type="SPRING" targetPackage="com.ccb.ncbs.dos.bond.service"
+			implementationPackage="com.ccb.ncbs.dos.bond.service" targetProject="D:\zhsc_NCBS_new\NCBS_App\ncbs-dos\src\">
+		</daoGenerator>
+		<!-- 指定schema，预防不同schema下面有同样名称的表名 -->
+		<table schema="NCBS" tableName="BOND_BUYSELL" >
+			<!-- 去掉sqlmap中的schema， 在oracle中，如果配置了schema，此项一定要为true -->
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<!-- 是否需要增加jdbcType 如：#installSize:DECIMAL# 默认为 #installSize# -->
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="IBNK_BDTN_MGT">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="IBNK_BOND_SETL_MGT">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="IBNK_BOND_SETL_DATA">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="PLG_BYBK_BOND_INF">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="IBNK_BDTN_BSN_LC">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="OUTRIGHT_TP_BYBK_DATA">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="IBNK_BOND_CHNBOND_SETL_DATA">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="PLG_TP_BYBK_DATA">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+	</ibatorContext>
+</ibatorConfiguration>

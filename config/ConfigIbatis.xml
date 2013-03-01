@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ibatorConfiguration
+  PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN"
+  "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd">
+
+<ibatorConfiguration>
+	<classPathEntry location="E:/jars/mysql-connector-java-5.1.13-bin.jar" />
+	<ibatorContext id="FlatJava5" targetRuntime="Ibatis2Java5">
+		<property name="suppressTypeWarnings" value="true" />
+		<!-- 修改dao里面返回值，把增删改的返回值由整型改为布尔型 -->
+		 <ibatorPlugin type="org.apache.ibatis.ibator.plugins.ChangeReturnPlugin" >
+		 	<property name="enableResult" value="true"/>
+		 </ibatorPlugin>
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.AnnotationPlugin" />
+		<!-- Serializable化 -->
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.SerializablePlugin" />
+		<!-- 这个插件添加方法为例(实际上的内部类)来支持不区分大小写像查询 -->
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.CaseInsensitiveLikePlugin" />
+		<!-- 分页 -->
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.PaginationPlugin">
+			<property name="enablePagination" value="true" />
+			<!-- mysql or oracle -->
+			<property name="databaseType" value="oracle" />
+		</ibatorPlugin>
+		<!-- 重命名example类 -->
+		<ibatorPlugin
+			type="org.apache.ibatis.ibator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</ibatorPlugin>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/sigma" userId="root"
+			password="xinxin" >
+			<property name="remarksReporting" value="true"/>
+			</jdbcConnection>
+		<javaModelGenerator targetPackage="ibator.pojo"
+			targetProject="../useIbator/src/main/java">
+			<!--<property name="rootClass" value="org.apache.ibatis.ibator.ant.BaseBean" />
+		--></javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="ibator.sqlmap"
+			targetProject="../useIbator/src/main/java">
+		</sqlMapGenerator>
+
+		<daoGenerator type="SPRING" targetPackage="ibator.dao"  implementationPackage="ibator.dao.impl"
+			targetProject="../useIbator/src/main/java">
+		</daoGenerator>
+		<table tableName="award">
+		</table>
+		<table tableName="award">
+		</table>
+	</ibatorContext>
+</ibatorConfiguration>
