@@ -21,89 +21,92 @@ import org.apache.ibatis.ibator.api.dom.OutputUtilities;
  * @author Jeff Butler
  */
 public class Field extends JavaElement {
-    private FullyQualifiedJavaType type;
+	private FullyQualifiedJavaType type;
 
-    private String name;
-    private String initializationString;
+	private String name;
+	private String initializationString;
 
-    /**
+	/**
      *  
      */
-    public Field() {
-        super();
-    }
+	public Field() {
+		super();
+	}
 
-    /**
-     * @return Returns the name.
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * @return Returns the name.
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * @param name
-     *            The name to set.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * @param name
+	 *            The name to set.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    /**
-     * @return Returns the type.
-     */
-    public FullyQualifiedJavaType getType() {
-        return type;
-    }
+	/**
+	 * @return Returns the type.
+	 */
+	public FullyQualifiedJavaType getType() {
+		return type;
+	}
 
-    /**
-     * @param type
-     *            The type to set.
-     */
-    public void setType(FullyQualifiedJavaType type) {
-        this.type = type;
-    }
-    /**
-     * @return Returns the initializationString.
-     */
-    public String getInitializationString() {
-        return initializationString;
-    }
-    /**
-     * @param initializationString The initializationString to set.
-     */
-    public void setInitializationString(String initializationString) {
-        this.initializationString = initializationString;
-    }
-    
-    public String getFormattedContent(int indentLevel) {
-        StringBuilder sb = new StringBuilder();
+	/**
+	 * @param type
+	 *            The type to set.
+	 */
+	public void setType(FullyQualifiedJavaType type) {
+		this.type = type;
+	}
 
-        addFormattedJavadoc(sb, indentLevel);
-        addFormattedAnnotations(sb, indentLevel);
-        
-        OutputUtilities.javaIndent(sb, indentLevel);
-        sb.append(getVisibility().getValue());
-        
-        if (isStatic()) {
-            sb.append("static "); //$NON-NLS-1$
-        }
-        
-        if (isFinal()) {
-            sb.append("final "); //$NON-NLS-1$
-        }
-        
-        sb.append(type.getShortName());
+	/**
+	 * @return Returns the initializationString.
+	 */
+	public String getInitializationString() {
+		return initializationString;
+	}
 
-        sb.append(' ');
-        sb.append(name);
-        
-        if (initializationString != null && initializationString.length() > 0) {
-            sb.append(" = "); //$NON-NLS-1$
-            sb.append(initializationString);
-        }
-        
-        sb.append(';');
-        
-        return sb.toString();
-    }
+	/**
+	 * @param initializationString
+	 *            The initializationString to set.
+	 */
+	public void setInitializationString(String initializationString) {
+		this.initializationString = initializationString;
+	}
+
+	public String getFormattedContent(int indentLevel) {
+		StringBuilder sb = new StringBuilder();
+
+		addFormattedJavadoc(sb, indentLevel);
+		addFormattedAnnotations(sb, indentLevel);
+
+		OutputUtilities.javaIndent(sb, indentLevel);
+		sb.append(getVisibility().getValue());
+
+		if (isStatic()) {
+			sb.append("static "); //$NON-NLS-1$
+		}
+
+		if (isFinal()) {
+			sb.append("final "); //$NON-NLS-1$
+		}
+
+		sb.append(type.getShortName());
+
+		sb.append(' ');
+		sb.append(name);
+
+		if (initializationString != null && initializationString.length() > 0) {
+			sb.append(" = "); //$NON-NLS-1$
+			sb.append(initializationString);
+		}
+
+		sb.append(';');
+
+		return sb.toString();
+	}
 }

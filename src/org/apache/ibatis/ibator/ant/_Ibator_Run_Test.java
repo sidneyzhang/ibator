@@ -17,7 +17,7 @@ public class _Ibator_Run_Test {
 	    boolean overwrite = true;
 	    File configFile = new File(ClassLoader.getSystemResource(
 	    // "ConfigIbatis.xml").getFile());
-		    "ConfigIbatisOracle3.xml").getFile());
+		    "ConfigIbatisOracle.xml").getFile());
 	    IbatorConfigurationParser cp = new IbatorConfigurationParser(
 		    warnings);
 	    IbatorConfiguration config = cp

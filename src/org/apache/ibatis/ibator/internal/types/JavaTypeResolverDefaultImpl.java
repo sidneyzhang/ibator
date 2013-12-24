@@ -15,6 +15,8 @@
  */
 package org.apache.ibatis.ibator.internal.types;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Date;
 import java.util.HashMap;
@@ -98,8 +100,8 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
 				new FullyQualifiedJavaType(Object.class.getName())));
 		typeMap.put(Types.TIME, new JdbcTypeInformation("TIME", //$NON-NLS-1$
 				new FullyQualifiedJavaType(Date.class.getName())));
-		typeMap.put(Types.TIMESTAMP, new JdbcTypeInformation("TIMESTAMP", //$NON-NLS-1$
-				new FullyQualifiedJavaType(Date.class.getName())));
+		//		typeMap.put(Types.TIMESTAMP, new JdbcTypeInformation("TIMESTAMP", //$NON-NLS-1$
+		// new FullyQualifiedJavaType(Date.class.getName())));
 		typeMap.put(Types.TINYINT, new JdbcTypeInformation("TINYINT", //$NON-NLS-1$
 				new FullyQualifiedJavaType(Byte.class.getName())));
 		typeMap.put(Types.VARBINARY, new JdbcTypeInformation("VARBINARY", //$NON-NLS-1$
@@ -108,6 +110,7 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
 				new FullyQualifiedJavaType(String.class.getName())));
 	}
 
+	@Override
 	public void addConfigurationProperties(Properties properties) {
 		this.properties.putAll(properties);
 		forceBigDecimals = StringUtility
@@ -122,6 +125,7 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
 	 * org.apache.ibatis.ibator.api.JavaTypeResolver#initializeResolvedJavaType
 	 * (org.apache.ibatis.ibator.internal.db.ColumnDefinition)
 	 */
+	@Override
 	public FullyQualifiedJavaType calculateJavaType(
 			IntrospectedColumn introspectedColumn) {
 		FullyQualifiedJavaType answer;
@@ -138,13 +142,26 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
 				} else if (introspectedColumn.getScale() > 0
 						|| introspectedColumn.getLength() > 18
 						|| forceBigDecimals) {
-					answer = new FullyQualifiedJavaType(Double.class.getName());
+					answer = new FullyQualifiedJavaType(
+							BigDecimal.class.getName());
 				} else if (introspectedColumn.getLength() > 9) {
 					answer = new FullyQualifiedJavaType(Long.class.getName());
 				} else if (introspectedColumn.getLength() > 4) {
 					answer = new FullyQualifiedJavaType(Integer.class.getName());
 				} else {
 					answer = new FullyQualifiedJavaType(Short.class.getName());
+				}
+
+				break;
+			case Types.TIMESTAMP:
+				if (introspectedColumn.getLength() == 7) {
+					answer = new FullyQualifiedJavaType(Date.class.getName());
+				} else if (introspectedColumn.getLength() == 10) {
+					answer = new FullyQualifiedJavaType(
+							Timestamp.class.getName());
+				} else {
+					answer = new FullyQualifiedJavaType(
+							Timestamp.class.getName());
 				}
 
 				break;
@@ -167,6 +184,7 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
 	 * org.apache.ibatis.ibator.api.JavaTypeResolver#calculateJdbcTypeName(org
 	 * .apache.ibatis.ibator.api.IntrospectedColumn)
 	 */
+	@Override
 	public String calculateJdbcTypeName(IntrospectedColumn introspectedColumn) {
 		String answer;
 		JdbcTypeInformation jdbcTypeInformation = typeMap
@@ -180,6 +198,8 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
 			case Types.NUMERIC:
 				answer = "NUMERIC"; //$NON-NLS-1$
 				break;
+			case Types.TIMESTAMP:
+				answer = "TIMESTAMP";
 			default:
 				answer = null;
 				break;
@@ -197,18 +217,20 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
 	 * @see
 	 * org.apache.ibatis.ibator.api.JavaTypeResolver#setWarnings(java.util.List)
 	 */
+	@Override
 	public void setWarnings(List<String> warnings) {
 		this.warnings = warnings;
 	}
 
+	@Override
 	public void setIbatorContext(IbatorContext ibatorContext) {
 		this.ibatorContext = ibatorContext;
 	}
 
 	private static class JdbcTypeInformation {
-		private String jdbcTypeName;
+		private final String jdbcTypeName;
 
-		private FullyQualifiedJavaType fullyQualifiedJavaType;
+		private final FullyQualifiedJavaType fullyQualifiedJavaType;
 
 		public JdbcTypeInformation(String jdbcTypeName,
 				FullyQualifiedJavaType fullyQualifiedJavaType) {

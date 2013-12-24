@@ -16,69 +16,99 @@
 package org.apache.ibatis.ibator.api;
 
 import org.apache.ibatis.ibator.api.dom.java.CompilationUnit;
-
+import org.apache.ibatis.ibator.internal.util.StringUtility;
 
 /**
  * @author Jeff Butler
  */
 public class GeneratedJavaFile extends GeneratedFile {
-    private CompilationUnit compilationUnit;
-    
+	private final CompilationUnit compilationUnit;
+	private String preFix;
+	private String sufFix;
+
+	public String getPreFix() {
+		return preFix;
+	}
+
+	public void setPreFix(String preFix) {
+		this.preFix = preFix;
+	}
+
+	public String getSufFix() {
+		return sufFix;
+	}
+
+	public void setSufFix(String sufFix) {
+		this.sufFix = sufFix;
+	}
+
 	/**
-	 *  Default constructor
+	 * Default constructor
 	 */
 	public GeneratedJavaFile(CompilationUnit compilationUnit,
-            String targetProject) {
+			String targetProject) {
 		super(targetProject);
-        this.compilationUnit = compilationUnit;
+		this.compilationUnit = compilationUnit;
 	}
 
 	/*
-	 *  (non-Javadoc)
+	 * (non-Javadoc)
+	 * 
 	 * @see org.apache.ibatis.ibator.api.GeneratedFile#getFormattedContent()
 	 */
 	@Override
 	public String getFormattedContent() {
-	    return compilationUnit.getFormattedContent();
+		return compilationUnit.getFormattedContent();
 	}
 
-    /*
-     *  (non-Javadoc)
-     * @see org.apache.ibatis.ibator.api.GeneratedFile#getFileName()
-     */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.ibatis.ibator.api.GeneratedFile#getFileName()
+	 */
 	@Override
-    public String getFileName() {
-        return compilationUnit.getType().getShortName() + ".java"; //$NON-NLS-1$
-    }
+	public String getFileName() {
+		StringBuffer sb = new StringBuffer();
+		if (StringUtility.stringHasValue(preFix)) {
+			sb.append(preFix);
+		}
+		sb.append(compilationUnit.getType().getShortName());
+		if (StringUtility.stringHasValue(sufFix)) {
+			sb.append(sufFix);
+		}
+		sb.append(".java");
+		return sb.toString(); //$NON-NLS-1$
+	}
 
-    /*
-     *  (non-Javadoc)
-     * @see org.apache.ibatis.ibator.api.GeneratedFile#getTargetPackage()
-     */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.ibatis.ibator.api.GeneratedFile#getTargetPackage()
+	 */
 	@Override
-    public String getTargetPackage() {
-        return compilationUnit.getType().getPackageName();
-    }
-    
-    /**
-     * This method is required by the Eclipse Java merger.  If you are
-     * not running in Eclipse, or some other system that implements the
-     * Java merge function, you may return null from this method. 
-     * 
-     * @return the CompilationUnit associated with this file, or
-     *   null if the file is not mergeable.
-     */
-    public CompilationUnit getCompilationUnit() {
-        return compilationUnit;
-    }
+	public String getTargetPackage() {
+		return compilationUnit.getType().getPackageName();
+	}
 
-    /**
-     * A Java file is mergeable if the getCompilationUnit() method
-     * returns a valid compilation unit.
-     * 
-     */
-    @Override
-    public boolean isMergeable() {
-        return true;
-    }
+	/**
+	 * This method is required by the Eclipse Java merger. If you are not
+	 * running in Eclipse, or some other system that implements the Java merge
+	 * function, you may return null from this method.
+	 * 
+	 * @return the CompilationUnit associated with this file, or null if the
+	 *         file is not mergeable.
+	 */
+	public CompilationUnit getCompilationUnit() {
+		return compilationUnit;
+	}
+
+	/**
+	 * A Java file is mergeable if the getCompilationUnit() method returns a
+	 * valid compilation unit.
+	 * 
+	 */
+	@Override
+	public boolean isMergeable() {
+		return true;
+	}
 }

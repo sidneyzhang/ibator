@@ -5,7 +5,7 @@
 
 <ibatorConfiguration>
 	<classPathEntry
-		location="D:\MySpaces\ncbsws\mytest\WebContent\WEB-INF\lib\ojdbc6.jar" />
+		location="E:\code\oracle\ojdbc6.jar" />
 	<ibatorContext id="FlatJava5" targetRuntime="Ibatis2Java5">
 		<property name="suppressTypeWarnings" value="true" />
 		<!-- 修改dao里面返回值，把增删改的返回值由整型改为布尔型 <ibatorPlugin type="org.apache.ibatis.ibator.plugins.ChangeReturnPlugin" 
@@ -28,13 +28,13 @@
 		<!-- 产生sqlmap.xml -->
 		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.SqlMapConfigPlugin">
 			<property name="targetPackage" value="com.ccb.ncbs.bond.sqlmap" />
-			<property name="targetProject" value="../mytest/src/" />
+			<property name="targetProject" value="D:\workspace\mytest\src\main\java" />
 		</ibatorPlugin>
 		<!-- 产生service -->
 		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.ServiceImplPlugin">
 			<property name="targetPackage" value="com.ccb.ncbs.bond.service" />
 			<property name="implementationPackage" value="com.ccb.ncbs.bond.service.impl" />
-			<property name="targetProject" value="../mytest/src/" />
+			<property name="targetProject" value="D:\workspace\mytest\src\main\java" />
 			<!-- 是否要设置自定义的返回值，默认为true -->
 			<property name="addResult" value="true" />
 			<!-- 是否要设置注解方式，默认为true -->
@@ -48,27 +48,36 @@
 				name="enableUpdateByExample" value="false" /> -->
 		</ibatorPlugin>
 
-		<jdbcConnection connectionURL="jdbc:oracle:thin:@128.160.96.54:1521:crmdb"
+		<jdbcConnection connectionURL="jdbc:oracle:thin:@128.160.96.20:1521:ncbsdb"
 			userId="ncbs" password="ncbs" driverClass="oracle.jdbc.OracleDriver">
 			<property name="remarksReporting" value="true" />
 		</jdbcConnection>
+		 <javaTypeResolver > 
+          <property name="forceBigDecimals" value="true" /> 
+        </javaTypeResolver> 
 		<javaModelGenerator targetPackage="com.ccb.ncbs.bond.pojo"
-			targetProject="../mytest/src/">
+			targetProject="D:\workspace\mytest\src\main\java">
+			<property name="prefix" value="" />
+			<property name="suffix" value="DO" />
 			<!-- <property name="rootClass" value="pojo.BaseBean"/> -->
 		</javaModelGenerator>
 
 		<sqlMapGenerator targetPackage="com.ccb.ncbs.bond.sqlmap"
-			targetProject="../mytest/src/">
+			targetProject="D:\workspace\mytest\src\main\java">
 		</sqlMapGenerator>
 
 		<daoGenerator type="SPRING" targetPackage="com.ccb.ncbs.bond.dao"
-			implementationPackage="com.ccb.ncbs.bond.dao.impl" targetProject="../mytest/src/">
+			implementationPackage="com.ccb.ncbs.bond.dao.impl" targetProject="D:\workspace\mytest\src\main\java">
 		</daoGenerator>
 		<!-- 指定schema，预防不同schema下面有同样名称的表名 -->
-		<table schema="NCBS" tableName="BOND_BUYSELL" >
-			<!-- 去掉sqlmap中的schema， 在oracle中，如果配置了schema，此项一定要为true -->
+		<!-- <table schema="NCBS" tableName="BOND_BUYSELL" >
+			去掉sqlmap中的schema， 在oracle中，如果配置了schema，此项一定要为true
 			<property name="ignoreQualifiersAtRuntime" value="true" />
-			<!-- 是否需要增加jdbcType 如：#installSize:DECIMAL# 默认为 #installSize# -->
+			是否需要增加jdbcType 如：#installSize:DECIMAL# 默认为 #installSize#
+			<property name="jdbcType" value="true" />
+		</table> -->
+		<!-- <table schema="NCBS" tableName="BOND_BUYSELL">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="jdbcType" value="true" />
 		</table>
 		<table schema="NCBS" tableName="IBNK_BDTN_MGT">
@@ -83,11 +92,7 @@
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="jdbcType" value="true" />
 		</table>
-		<table schema="NCBS" tableName="PLG_BYBK_BOND_INF">
-			<property name="ignoreQualifiersAtRuntime" value="true" />
-			<property name="jdbcType" value="true" />
-		</table>
-		<table schema="NCBS" tableName="IBNK_BDTN_BSN_LC">
+		<table schema="NCBS" tableName="IBBD_INF">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="jdbcType" value="true" />
 		</table>
@@ -103,5 +108,52 @@
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="jdbcType" value="true" />
 		</table>
+		<table schema="NCBS" tableName="TRSTSHIP_BSN_LC">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="TFROFCSTD_BSN_MGT_TBL">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="CHNBOND_OUTRIGHT_TP_BYBK_DATA">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="CHNBOND_BOND_TXNDATA">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="CHNBOND_PLG_TP_BYBK_DATA">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="OUTRIGHT_TP_BYBK_GNT_SCR_INF">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		</table>
+		<table schema="NCBS" tableName="IBNK_BDTN_MGT">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		    <columnOverride column="VERF_BOND_INSN_SND_TM" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		</table> -->
+		<table schema="NCBS" tableName="IBNK_BOND_SETL_MGT">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+			<columnOverride column="RCRD_MOD_TM" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		</table>
+		<!-- <table schema="NCBS" tableName="IBNK_BDTN_MGT">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+		    <columnOverride column="VERF_BOND_INSN_SND_TM" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		</table>
+		<table schema="NCBS" tableName="CHNBOND_BOND_DSTR_DATA">
+			<property name="ignoreQualifiersAtRuntime" value="true" />
+			<property name="jdbcType" value="true" />
+			<columnOverride column="OPNT_CFM_TM" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+			<columnOverride column="ORDRPARTY_CFM_TM" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+			<columnOverride column="INPT_TM" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+			<columnOverride column="UDT_TM" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		</table> -->
 	</ibatorContext>
 </ibatorConfiguration>
