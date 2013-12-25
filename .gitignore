@@ -19,6 +19,9 @@ local.properties
 # java
 *.class
 
+# maven
+target/
+
 # Package Files #
 *.jar
 *.war
