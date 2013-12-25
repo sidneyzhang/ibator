@@ -179,14 +179,14 @@ public class IntrospectedTableIbatis2Java2Impl extends IntrospectedTable {
 						ibatorContext.getDaoGeneratorConfiguration()
 								.getTargetProject());
 				if (StringUtility.stringHasValue(ibatorContext
-						.getDaoGeneratorConfiguration().getProperty("sufFix"))) {
+						.getDaoGeneratorConfiguration().getProperty("suffix"))) {
 					gjf.setSufFix(ibatorContext.getDaoGeneratorConfiguration()
-							.getProperty("sufFix"));
+							.getProperty("suffix"));
 				}
 				if (StringUtility.stringHasValue(ibatorContext
-						.getDaoGeneratorConfiguration().getProperty("preFix"))) {
+						.getDaoGeneratorConfiguration().getProperty("prefix"))) {
 					gjf.setPreFix(ibatorContext.getDaoGeneratorConfiguration()
-							.getProperty("preFix"));
+							.getProperty("prefix"));
 				}
 				answer.add(gjf);
 			}

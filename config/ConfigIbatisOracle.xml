@@ -64,10 +64,14 @@
 
 		<sqlMapGenerator targetPackage="com.ccb.ncbs.bond.sqlmap"
 			targetProject="D:\workspace\mytest\src\main\java">
+			<property name="prefix" value="test" />
+			<property name="suffix" value="map" />
 		</sqlMapGenerator>
 
 		<daoGenerator type="SPRING" targetPackage="com.ccb.ncbs.bond.dao"
 			implementationPackage="com.ccb.ncbs.bond.dao.impl" targetProject="D:\workspace\mytest\src\main\java">
+			<property name="prefix" value="d" />
+			<property name="suffix" value="dao" />
 		</daoGenerator>
 		<!-- 指定schema，预防不同schema下面有同样名称的表名 -->
 		<!-- <table schema="NCBS" tableName="BOND_BUYSELL" >

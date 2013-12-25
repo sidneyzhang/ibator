@@ -21,59 +21,62 @@ import org.apache.ibatis.ibator.api.dom.xml.Document;
  * @author Jeff Butler
  */
 public class GeneratedXmlFile extends GeneratedFile {
-    private Document document;
+	private final Document document;
 
-    private String fileName;
+	private final String fileName;
 
-    private String targetPackage;
-    
-    private boolean isMergeable;
+	private final String targetPackage;
 
-    /**
-     * 
-     * @param document
-     * @param fileName
-     * @param targetPackage
-     * @param targetProject
-     * @param isMergeable true if the file can be merged by the built in
-     *   XML file merger.  Files are mergeable if all mergeable elements contain
-     *   id's with the "ibatorgenerated_" prefix.
-     */
-    public GeneratedXmlFile(Document document, String fileName, String targetPackage, String targetProject, boolean isMergeable) {
-        super(targetProject);
-        this.document = document;
-        this.fileName = fileName;
-        this.targetPackage = targetPackage;
-        this.isMergeable = isMergeable;
-    }
+	private final boolean isMergeable;
 
-    /*
-     *  (non-Javadoc)
-     * @see org.apache.ibatis.ibator.api.GeneratedFile#getFormattedContent()
-     */
+	/**
+	 * 
+	 * @param document
+	 * @param fileName
+	 * @param targetPackage
+	 * @param targetProject
+	 * @param isMergeable
+	 *            true if the file can be merged by the built in XML file
+	 *            merger. Files are mergeable if all mergeable elements contain
+	 *            id's with the "ibatorgenerated_" prefix.
+	 */
+	public GeneratedXmlFile(Document document, String fileName,
+			String targetPackage, String targetProject, boolean isMergeable) {
+		super(targetProject);
+		this.document = document;
+		this.fileName = fileName;
+		this.targetPackage = targetPackage;
+		this.isMergeable = isMergeable;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.ibatis.ibator.api.GeneratedFile#getFormattedContent()
+	 */
 	@Override
-    public String getFormattedContent() {
-        return document.getFormattedContent();
-    }
+	public String getFormattedContent() {
+		return document.getFormattedContent();
+	}
 
-    /**
-     * @return Returns the fileName.
-     */
+	/**
+	 * @return Returns the fileName.
+	 */
 	@Override
-    public String getFileName() {
-        return fileName;
-    }
+	public String getFileName() {
+		return fileName;
+	}
 
-    /**
-     * @return Returns the targetPackage.
-     */
+	/**
+	 * @return Returns the targetPackage.
+	 */
 	@Override
-    public String getTargetPackage() {
-        return targetPackage;
-    }
+	public String getTargetPackage() {
+		return targetPackage;
+	}
 
-    @Override
-    public boolean isMergeable() {
-        return isMergeable;
-    }
+	@Override
+	public boolean isMergeable() {
+		return isMergeable;
+	}
 }
