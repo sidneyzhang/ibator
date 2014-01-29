@@ -4,12 +4,12 @@
   "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd">
 
 <ibatorConfiguration>
-	<classPathEntry
-		location="D:\MySpaces\ncbsws\mytest\WebContent\WEB-INF\lib\ojdbc6.jar" />
-		<ibatorContext id="FlatJava5" targetRuntime="Ibatis2Java5">
+	<classPathEntry location="E:\code\oracle\ojdbc6.jar" />
+	<ibatorContext id="FlatJava5" targetRuntime="Ibatis2Java5">
 		<property name="suppressTypeWarnings" value="true" />
 		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.AnnotationPlugin" />
-		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.CaseInsensitiveLikePlugin" />
+		<ibatorPlugin
+			type="org.apache.ibatis.ibator.plugins.CaseInsensitiveLikePlugin" />
 		<!-- 分页 ，自动根据下面的配置jdbcConnection的 driverClass自动判断是oracle还是mysql -->
 		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.PaginationPlugin" />
 		<!-- 重命名example类 -->
@@ -20,64 +20,55 @@
 		</ibatorPlugin>
 		<!-- 产生sqlmap.xml -->
 		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.SqlMapConfigPlugin">
-			<property name="targetPackage" value="application.ibatis.bond" />
-			<property name="targetProject" value="D:\zhsc_NCBS_new\NCBS_App\ncbs-dos\cfg\" />
+			<property name="targetPackage" value="sqlmap" />
+			<property name="targetProject" value="E:\GitHub\myspring\src\main\resources\" />
 		</ibatorPlugin>
 		<!-- 产生service -->
 		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.ServiceImplPlugin">
-			<property name="targetPackage" value="com.ccb.ncbs.dos.bond.service" />
-			<property name="implementationPackage" value="com.ccb.ncbs.dos.bond.service" />
-			<property name="targetProject" value="D:\zhsc_NCBS_new\NCBS_App\ncbs-dos\src\" />
+			<property name="targetPackage" value="com.sidney.myspring.service" />
+			<property name="implementationPackage" value="com.sidney.myspring.service.impl" />
+			<property name="targetProject" value="E:\GitHub\myspring\src\main\java\" />
 			<property name="addResult" value="false" />
 			<property name="enableAnnotation" value="true" />
 		</ibatorPlugin>
-
-		<jdbcConnection connectionURL="jdbc:oracle:thin:@128.160.96.54:1521:crmdb"
-			userId="ncbs" password="ncbs" driverClass="oracle.jdbc.OracleDriver">
+		<jdbcConnection connectionURL="jdbc:oracle:thin:@localhost:orcl"
+			userId="s_emp" password="s_emp" driverClass="oracle.jdbc.OracleDriver">
 			<property name="remarksReporting" value="true" />
 		</jdbcConnection>
-		<javaModelGenerator targetPackage="com.ccb.ncbs.bean.data.bond"
-			targetProject="D:\zhsc_NCBS_new\NCBS_App\ncbs-bean\src\">
+		<javaModelGenerator targetPackage="com.sidney.myspring.repository.ibatis"
+			targetProject="E:\GitHub\myspring\src\main\java\">
 		</javaModelGenerator>
-		<daoGenerator type="SPRING" targetPackage="com.ccb.ncbs.dos.bond.service"
-			implementationPackage="com.ccb.ncbs.dos.bond.service" targetProject="D:\zhsc_NCBS_new\NCBS_App\ncbs-dos\src\">
+		<daoGenerator type="SPRING" targetPackage="com.sidney.myspring.dao"
+			implementationPackage="com.sidney.myspring.dao.impl" targetProject="E:\GitHub\myspring\src\main\java\">
 		</daoGenerator>
 		<!-- 指定schema，预防不同schema下面有同样名称的表名 -->
-		<table schema="NCBS" tableName="BOND_BUYSELL" >
+		<table schema="s_emp" tableName="S_EMP">
 			<!-- 去掉sqlmap中的schema， 在oracle中，如果配置了schema，此项一定要为true -->
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<!-- 是否需要增加jdbcType 如：#installSize:DECIMAL# 默认为 #installSize# -->
 			<property name="jdbcType" value="true" />
 		</table>
-		<table schema="NCBS" tableName="IBNK_BDTN_MGT">
+		<table schema="s_emp" tableName="S_DEPT">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="jdbcType" value="true" />
 		</table>
-		<table schema="NCBS" tableName="IBNK_BOND_SETL_MGT">
+		<table schema="s_emp" tableName="S_CUSTOMER">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="jdbcType" value="true" />
 		</table>
-		<table schema="NCBS" tableName="IBNK_BOND_SETL_DATA">
+		<table schema="s_emp" tableName="S_IMAGE">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="jdbcType" value="true" />
 		</table>
-		<table schema="NCBS" tableName="PLG_BYBK_BOND_INF">
+		<table schema="s_emp" tableName="S_INVENTORY">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="jdbcType" value="true" />
 		</table>
-		<table schema="NCBS" tableName="IBNK_BDTN_BSN_LC">
+		<table schema="s_emp" tableName="S_ITEM">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="jdbcType" value="true" />
 		</table>
-		<table schema="NCBS" tableName="OUTRIGHT_TP_BYBK_DATA">
-			<property name="ignoreQualifiersAtRuntime" value="true" />
-			<property name="jdbcType" value="true" />
-		</table>
-		<table schema="NCBS" tableName="IBNK_BOND_CHNBOND_SETL_DATA">
-			<property name="ignoreQualifiersAtRuntime" value="true" />
-			<property name="jdbcType" value="true" />
-		</table>
-		<table schema="NCBS" tableName="PLG_TP_BYBK_DATA">
+		<table schema="s_emp" tableName="S_LONGTEXT">
 			<property name="ignoreQualifiersAtRuntime" value="true" />
 			<property name="jdbcType" value="true" />
 		</table>

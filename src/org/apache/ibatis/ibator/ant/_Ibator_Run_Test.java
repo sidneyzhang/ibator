@@ -11,26 +11,26 @@ import org.apache.ibatis.ibator.internal.DefaultShellCallback;
 
 public class _Ibator_Run_Test {
 
-    public static void main(String... strings) {
-	try {
-	    List<String> warnings = new ArrayList<String>();
-	    boolean overwrite = true;
-	    File configFile = new File(ClassLoader.getSystemResource(
-	    // "ConfigIbatis.xml").getFile());
-		    "ConfigIbatisOracle.xml").getFile());
-	    IbatorConfigurationParser cp = new IbatorConfigurationParser(
-		    warnings);
-	    IbatorConfiguration config = cp
-		    .parseIbatorConfiguration(configFile);
-	    DefaultShellCallback callback = new DefaultShellCallback(overwrite);
-	    Ibator ibator = new Ibator(config, callback, warnings);
-	    ibator.generate(null);
-	    for (String warning : warnings) {
-		System.out.println("warning:" + warning);
-	    }
-	} catch (Exception ex) {
-	    ex.printStackTrace();
+	public static void main(String... strings) {
+		try {
+			List<String> warnings = new ArrayList<String>();
+			boolean overwrite = true;
+			File configFile = new File(ClassLoader.getSystemResource(
+			// "ConfigIbatis.xml").getFile());
+					"ConfigIbatisNew.xml").getFile());
+			IbatorConfigurationParser cp = new IbatorConfigurationParser(
+					warnings);
+			IbatorConfiguration config = cp
+					.parseIbatorConfiguration(configFile);
+			DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+			Ibator ibator = new Ibator(config, callback, warnings);
+			ibator.generate(null);
+			for (String warning : warnings) {
+				System.out.println("warning:" + warning);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
-    }
 
 }

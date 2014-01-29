@@ -956,8 +956,16 @@ public abstract class IntrospectedTable {
 	}
 
 	protected String calculateIbatis3XmlMapperFileName() {
+		SqlMapGeneratorConfiguration config = ibatorContext
+				.getSqlMapGeneratorConfiguration();
 		StringBuilder sb = new StringBuilder();
+		if (StringUtility.stringHasValue(config.getProperty("prefix"))) {
+			sb.append(config.getProperty("prefix"));
+		}
 		sb.append(fullyQualifiedTable.getDomainObjectName());
+		if (StringUtility.stringHasValue(config.getProperty("suffix"))) {
+			sb.append(config.getProperty("suffix"));
+		}
 		sb.append("Mapper.xml"); //$NON-NLS-1$
 		return sb.toString();
 	}
